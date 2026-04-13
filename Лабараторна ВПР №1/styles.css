@@ -1,0 +1,145 @@
+/* 3. Підключення шрифту Roboto відповідно до варіанта 1 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --color-primary: #2C3E50;    /* Основний колір */
+  --color-accent: #E74C3C;     /* Акцентний колір */
+  --color-bg: #f4f7f6;         /* Колір фону сторінки */
+  --color-text: #333;          /* Колір тексту */
+  --spacing-m: 1.5rem;         /* Змінна для середніх відступів */
+  --spacing-s: 0.75rem;        /* Змінна для малих відступів */
+}
+
+/* 2. Глобальні стилі та скидання (Box Model) */
+* {
+  box-sizing: border-box; /* Спрощення розрахунку розмірів */
+}
+
+body, h1, h2, h3, p, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* 3. Типографіка (Адаптивні одиниці rem) */
+h1 { font-size: 2.5rem; margin-bottom: var(--spacing-s); }
+h2 { font-size: 1.8rem; margin-bottom: var(--spacing-m); color: var(--color-primary); }
+h3 { font-size: 1.3rem; margin-bottom: var(--spacing-s); }
+
+p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* 4. Стилізація шапки та навігації (Flexbox) */
+header {
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--spacing-m);
+  text-align: center;
+}
+
+nav ul {
+  display: flex; /* Перетворення списку на горизонтальне меню */
+  justify-content: center;
+  list-style: none;
+  gap: 2rem;
+  margin-top: var(--spacing-s);
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease; /* Плавний ефект */
+}
+
+/* Стан :hover та :focus для доступності */
+nav a:hover, nav a:focus {
+  color: var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+/* 5. Макет основного контенту (Flexbox) */
+main {
+  display: flex;
+  max-width: 1200px; /* Обмеження ширини контейнера */
+  margin: var(--spacing-m) auto;
+  padding: 0 1rem;
+  gap: 2rem;
+}
+
+article {
+  flex: 1; /* Займає весь вільний простір */
+}
+
+aside {
+  flex: 0 0 280px; /* Фіксована ширина бічної панелі */
+  background: white;
+  padding: var(--spacing-m);
+  border-radius: 8px;
+  height: fit-content;
+}
+
+/* 6. Стилізація таблиці */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Прибирання подвійних рамок */
+  margin: var(--spacing-m) 0;
+  border: 2px solid var(--color-accent);
+}
+
+th, td {
+  padding: var(--spacing-s);
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Чергування рядків */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* 8. Оформлення елементів взаємодії (кнопка-посилання) */
+a[target="_blank"] {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: transform 0.2s ease, filter 0.2s;
+}
+
+a[target="_blank"]:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* Стилізація зображень */
+img {
+  max-width: 100%; /* Адаптивність */
+  height: auto;
+  display: block;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+footer {
+  text-align: center;
+  padding: var(--spacing-m);
+  background: #ddd;
+  margin-top: var(--spacing-m);
+}
