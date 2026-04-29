@@ -1,0 +1,123 @@
+/* 1. КОНФІГУРАЦІЯ  */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --color-primary: #2C3E50;
+  --color-accent: #E74C3C;
+  --color-bg: #f4f7f6;
+  --color-text: #333;
+  --radius: 12px;
+  --spacing: 1.5rem;
+}
+
+/* 2. БАЗОВІ СТИЛІ  */
+* { box-sizing: border-box; }
+body, h1, h2, h3, p, ul { margin: 0; padding: 0; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%; /* Гнучкі зображення (RWD) */
+  height: auto;
+  display: block;
+}
+
+h1 { font-size: clamp(1.5rem, 5vw, 2.5rem); text-align: center; }
+
+/* 3. ГНУЧКА СІТКА (CSS Grid Areas) */
+.grid-container {
+  display: grid;
+  gap: var(--spacing);
+  padding: var(--spacing);
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-template-areas: 
+    "header"
+    "nav"
+    "content"
+    "sidebar"
+    "footer";
+}
+
+.header-area  { grid-area: header; background: var(--color-primary); color: white; padding: 2rem; border-radius: var(--radius); }
+.nav-area     { grid-area: nav; background: white; padding: 1rem; border-radius: var(--radius); }
+.content-area { grid-area: content; }
+.sidebar-area { grid-area: sidebar; background: white; padding: var(--spacing); border-radius: var(--radius); }
+.footer-area  { grid-area: footer; text-align: center; padding: 2rem; background: #ddd; border-radius: var(--radius); }
+
+/* Навігація */
+nav ul { display: flex; justify-content: center; list-style: none; gap: 1.5rem; }
+nav a { text-decoration: none; color: var(--color-primary); font-weight: bold; transition: 0.3s; }
+nav a:hover { color: var(--color-accent); }
+
+/* 4. ГАЛЕРЕЯ ТА АНІМАЦІЯ */
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 колонка на мобільних */
+  gap: var(--spacing);
+  margin-top: var(--spacing);
+}
+
+.card {
+  background: white;
+  padding: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  animation: fadeIn 0.8s both; /* Анімація fadeIn */
+}
+.card {
+  /* Основні параметри анімації */
+  animation-name: fadeIn;
+  animation-duration: 0.8s;
+  animation-fill-mode: both; /* Зберігає кінцевий стан після завершення */
+  animation-timing-function: ease-out;
+}
+
+/* Стилі для фото в картках */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover; /* Обрізка без деформації */
+  border-radius: calc(var(--radius) - 4px);
+  margin-bottom: 1rem;
+}
+
+/* Затримка анімації для кожної картки */
+.card:nth-child(n) { animation-delay: calc(var(--i) * 0.1s); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/*5. АДАПТИВНІСТЬ */
+
+/* Планшет (від 768px) */
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr 280px;
+    grid-template-areas: 
+      "header header"
+      "nav nav"
+      "content sidebar"
+      "footer footer";
+  }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Десктоп (від 1024px) */
+@media (min-width: 1024px) {
+  .gallery { grid-template-columns: repeat(3, 1fr); }
+
+  /* Специфічна умова Варіанта 1: Перша картка на 2 колонки */
+  .card:first-child {
+    grid-column: span 2;
+  }
+}
