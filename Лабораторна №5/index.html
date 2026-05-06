@@ -1,1 +1,103 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroShop — Варіант 1 (Lab 5)</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Підключення Vue.js 3 через CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        [v-cloak] { display: none; }
+        .cart-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
 
+    <div id="app" v-cloak>
+        <header class="header-area">
+            <h1>ElectroShop</h1>
+        </header>
+
+        <nav class="nav-area">
+            <ul>
+                <li><a href="#home">Головна</a></li>
+                <li><a href="#catalog">Каталог</a></li>
+                <li><a href="#specs">Характеристики</a></li>
+            </ul>
+        </nav>
+
+        <main class="grid-container">
+            <article class="content-area">
+                <section id="home">
+                    <h2>Новинки смартфонів</h2>
+                    <p>Відкрийте для себе світ <strong>інновацій</strong> з нашими новими моделями.</p>
+                    <figure>
+                        <img src="smartfone.jpg" alt="Смартфон" width="250">
+                        <figcaption>Флагман 2026 року</figcaption>
+                    </figure>
+                </section>
+
+                <!-- СЕКЦІЯ КОШИКА (Вимога варіанта 1) -->
+                <section class="cart-section">
+                    <h3>🛒 Кошик ({{ cart.length }} шт.)</h3>
+                    <div v-if="cart.length > 0">
+                        <div v-for="item in cart" :key="item.cartId" style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>{{ item.name }} — {{ item.price }} грн</span>
+                            <button @click="removeFromCart(item.cartId)" style="color:red; border:none; background:none; cursor:pointer;">Видалити</button>
+                        </div>
+                        <hr>
+                        <strong>Загальна сума: {{ totalPrice }} грн</strong>
+                    </div>
+                    <p v-else>Кошик порожній</p>
+                </section>
+
+                <section id="catalog">
+                    <h2>Наш асортимент</h2>
+
+                    <!-- Фільтри через v-for -->
+                    <div id="filter-container">
+                        <button 
+                            v-for="cat in categories" 
+                            :key="cat.id"
+                            class="filter-btn" 
+                            :class="{ active: currentCategory === cat.id }"
+                            @click="currentCategory = cat.id">
+                            {{ cat.name }}
+                        </button>
+                    </div>
+
+                    <!-- Галерея через дочірній компонент -->
+                    <div class="gallery">
+                        <card-item 
+                            v-for="product in filteredProducts" 
+                            :key="product.id" 
+                            :product="product"
+                            @add-to-cart="handleAddToCart">
+                        </card-item>
+                    </div>
+                    <p v-if="filteredProducts.length === 0" style="text-align:center; padding: 20px;">Нічого не знайдено.</p>
+                </section>
+            </article>
+
+            <aside class="sidebar-area">
+                <h3>Популярні категорії</h3>
+                <p>Перегляньте наші найкращі пропозиції на аксесуари.</p>
+                <a href="https://www.w3.org/" target="_blank">Більше про нас</a>
+            </aside>
+        </main>
+
+        <footer class="footer-area">
+            <p>&copy; 2026 ElectroShop. Всі права захищено.</p>
+        </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
